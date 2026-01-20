@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>TeamCSB - BIN Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- SEO Meta Tags -->
+    <meta name="description" content="Generate credit card numbers for testing purposes - TeamCSB Tools" />
+    <meta name="keywords" content="cc generator, credit card generator, bin generator, teamcsb" />
+    <meta name="author" content="TeamCSB" /> <!-- Theme Color -->
+    <meta name="theme-color" content="#06b6d4" /> <!-- Main CSS -->
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="assets/css/style.css?v=2" />
+
+    <!-- Font Awesome (icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        referrerpolicy="no-referrer" /> <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-178193698-1"></script>
+    <script> window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'UA-178193698-1'); </script>
+    <!--Ads removed-->
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header"> <a href="/" class="logo" style="text-decoration: none;">TeamCSB</a>
+        <div class="header-actions"> <button class="icon-btn" id="themeToggle" title="Toggle theme"> <i
+                    class="fas fa-moon"></i> </button> <button class="icon-btn" id="sidebarToggle" title="Menu"> <i
+                    class="fas fa-bars"></i> </button>
+            <div class="icon-btn"> <a href="https://t.me/team_csb" style="color: inherit; text-decoration: none;"><i
+                        class="fa-brands fa-telegram"></i></a> </div>
+        </div>
+    </header> <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">Our All Tools </div>
+
+        <div class="searchbar"> <i class="fas fa-search"></i> <input id="menuSearch" type="text"
+                placeholder="Search in tools…" aria-label="Sidebar search" /> </div>
+
+        <nav id="menuList"> <!-- Dynamic Category Subsection -->
+            <div class="subsection"> <button class="subsection-header dropdown-btn"> <span><i
+                            class="fas fa-credit-card"></i> Carding Tools</span> <i
+                        class="fas fa-chevron-down dropdown-arrow"></i> </button>
+                <div class="dropdown-content">
+                    <a href="../bin/index.html"> <i class="fas fa-credit-card"></i> Bin Generate </a>
+                    <a href="../bin-checker/index.html"> <i class="fas fa-check-circle"></i> Bin Checker </a>
+                    <a href="../live-cc-checker/index.html"> <i class="fas fa-play-circle"></i> Live CC Checker </a>
+                    <a href="../bin-find-share/index.html"> <i class="fas fa-share-alt"></i> Bin Find &amp; Sharing </a>
+                </div>
+            </div> <!-- Dynamic Category Subsection -->
+
+        </nav>
+    </aside>
+    <div class="overlay" id="overlay"></div> <!-- Main Content -->
+    <main class="main"> <!-- CC Generator Section -->
+        <section class="section">
+            <h2><i class="fas fa-credit-card"></i> Credit Card Generator</h2>
+            <div class="cc-generator-container">
+                <div class="generator-form">
+                    <div id="app"> <form-generator></form-generator> <generated-credit-cards></generated-credit-cards>
+                    </div> <button type="button" class="copy-btn" onclick="copy()"> <i class="fas fa-copy"></i> Copy
+                        Cards </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Section -->
+        <section class="section info-section">
+            <h3><i class="fas fa-info-circle"></i> Important Notice</h3>
+            <div class="info-card">
+                <p><i class="fas fa-exclamation-triangle"></i> These generated credit card numbers are for testing
+                    purposes only and should not be used for any illegal activities.</p>
+                <p><i class="fas fa-shield-alt"></i> All generated data is completely random and does not represent real
+                    credit card information.</p>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section features-section">
+            <h3><i class="fas fa-star"></i> Features</h3>
+            <div class="features-grid">
+                <div class="feature-card"> <i class="fas fa-random"></i>
+                    <h4>Random Generation</h4>
+                    <p>Generate completely random credit card numbers with valid format</p>
+                </div>
+                <div class="feature-card"> <i class="fas fa-check-circle"></i>
+                    <h4>Valid Format</h4>
+                    <p>All generated numbers follow standard credit card number format</p>
+                </div>
+                <div class="feature-card"> <i class="fas fa-shield-alt"></i>
+                    <h4>Safe Testing</h4>
+                    <p>Perfect for testing payment systems and form validations</p>
+                </div>
+                <div class="feature-card"> <i class="fas fa-copy"></i>
+                    <h4>Easy Copy</h4>
+                    <p>One-click copy functionality for generated card numbers</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Vue.js (main framework) -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> <!-- Main JavaScript -->
+    <script src="assets/js/main.js?v=2"></script>
+
+    <!-- Copy functionality -->
+    <script>
+        function copy() {
+            const textarea = document.getElementById('generatedCardsArea');
+
+            if (textarea && textarea.value.trim()) {
+                textarea.select();
+                textarea.setSelectionRange(0, 99999); /* For mobile devices */
+
+                // Try modern Clipboard API first
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(textarea.value).then(() => {
+                        showCopySuccess();
+                    }).catch(err => {
+                        // If failed, fallback to execCommand
+                        fallbackCopy(textarea);
+                    });
+                } else {
+                    fallbackCopy(textarea);
+                }
+            } else {
+                alert('No generated cards to copy! Please generate cards first.');
+            }
+        }
+
+        function fallbackCopy(textarea) {
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopySuccess();
+                } else {
+                    alert('Copy failed! Please try again.');
+                }
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+                alert('Copy not supported by your browser. Please select and copy manually.');
+            }
+        }
+
+        function showCopySuccess() {
+            const btn = document.querySelector('.copy-btn');
+            if (btn) {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.style.background = '#10b981';
+                btn.disabled = true;
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 2000);
+            } else {
+                showToast('Cards copied to clipboard!');
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; top: 20px; right: 20px;
+                background: #10b981; color: white;
+                padding: 12px 20px; border-radius: 8px;
+                font-weight: 600; z-index: 9999;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease-out;
+            `;
+            toast.textContent = message;
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+                style.remove();
+            }, 3000);
+        }
+    </script>
+
+    <script src="../script.js"></script>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"version":"2024.11.0","token":"f48f42cdaf9b4df59cc81f31364c86c4","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
